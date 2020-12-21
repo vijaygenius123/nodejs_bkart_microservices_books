@@ -43,8 +43,15 @@ app.post('/books', (req, res) => {
             throw  err;
         }
     })
-
 });
+
+app.get("/book/:id", (req, res) => {
+    Book.findById(req.params.id).then((book) => {
+        res.json(book);
+    }).catch((err) => {
+        throw err
+    })
+})
 
 app.listen(4000, () => {
     console.log("Up & Running! Books Microservice");
