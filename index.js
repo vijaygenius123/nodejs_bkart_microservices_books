@@ -15,6 +15,15 @@ app.get('/', (req, res) => {
     res.send("Hello From Books Microservice");
 });
 
+app.get('/books', (req, res) => {
+
+    Book.find().then((books) => {
+        res.json(books)
+    }).catch((err) => {
+        throw err
+    })
+})
+
 
 app.post('/books', (req, res) => {
     const newBook = {
