@@ -35,10 +35,11 @@ app.post('/books', (req, res) => {
 
     const book = new Book(newBook);
 
-    book.save().then(() => {
-        console.log("New Book Created")
-        res.send("New Book Created")
-    }).catch((err) => {
+    book.save()
+        .then(() => {
+            console.log("New Book Created")
+            res.send("New Book Created")
+        }).catch((err) => {
         if (err) {
             throw  err;
         }
@@ -46,12 +47,27 @@ app.post('/books', (req, res) => {
 });
 
 app.get("/book/:id", (req, res) => {
-    Book.findById(req.params.id).then((book) => {
-        res.json(book);
-    }).catch((err) => {
+    Book.findById(req.params.id)
+        .then((book) => {
+            if (book) {
+                res.json(book);
+            } else {
+                res.sendStatus(404);
+            }
+        }).catch((err) => {
         throw err
     })
 })
+
+app.delete('/book/:id', ((req, res) => {
+    Book.findOneAndDelete(req.params.id)
+        .then(() => {
+            res.send("Book Deleted")
+        })
+        .catch(err => {
+            throw err
+        })
+}))
 
 app.listen(4000, () => {
     console.log("Up & Running! Books Microservice");
