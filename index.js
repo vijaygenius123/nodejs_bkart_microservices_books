@@ -6,7 +6,7 @@ const {Book} = require('./models/Book')
 const app = express();
 app.use(bodyParser.json());
 
-mongoose.connect("mongodb+srv://books_user:books_password@cluster0.cbckc.mongodb.net/books>?retryWrites=true&w=majority",
+mongoose.connect("mongodb+srv://books_user:books_password@cluster0.cbckc.mongodb.net/books?retryWrites=true&w=majority",
     {useUnifiedTopology: true}, () => {
         console.log("DB Is Connected");
     })
